@@ -29,7 +29,7 @@ public class PersonRepositoryTest {
     @Test
     public void addNewPerson() throws IOException {
 
-        Person p = new Person(4,"Sandy","Schillebeeckx");
+        Person p = new Person(2,"Sandy","Schillebeeckx");
         personRepository.addPerson(p);
     }
 
