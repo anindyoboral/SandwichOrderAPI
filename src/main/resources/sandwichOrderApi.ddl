@@ -22,7 +22,7 @@ create table sandwichorders(
                                course number references abiscourses(id )
 )
 
-create table sandwichorder (
+create table sandwichorderdetails (
                                amount number,
                                breadtype varchar2(20),
                                vegetables boolean,
