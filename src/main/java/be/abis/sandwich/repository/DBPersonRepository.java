@@ -35,12 +35,12 @@ public class DBPersonRepository implements PersonRepository{
 
     @Override
     public void updatePerson(Person p) {
-        jdbcTemplate.update("update abispersons set id=?,firstname=?,lastname=? where personId=?",p.getPersonId(),p.getFirstName(),p.getLastName());
+        jdbcTemplate.update("update abispersons set firstname=?,lastname=? where personId=?",p.getFirstName(),p.getLastName(),p.getPersonId());
     }
     @Override
     public void deletePerson(int id) {
 
-        jdbcTemplate.update("delete from abispersons where id=?",id);
+        jdbcTemplate.update("delete from abispersons where personId=?",id);
 
     }
 
