@@ -13,7 +13,6 @@ import java.util.List;
 @Component
 public class DBPersonRepository implements PersonRepository{
 
-
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Override
