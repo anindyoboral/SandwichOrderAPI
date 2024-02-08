@@ -1,7 +1,5 @@
 package be.abis.sandwich.repository;
 
-import be.abis.sandwich.model.Course;
-import be.abis.sandwich.model.Sandwich;
 import be.abis.sandwich.model.SandwichOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,6 +22,11 @@ public class JdbcSandwichOrderRepository implements SandwichOrderRepository{
     @Override
     public void printSandwichOrder(SandwichOrder sod) {
         jdbcTemplate.queryForObject("select * from  sandwichorders where id=?",new SandwichOrderMapper(),sod.getId());
+    }
+
+    @Override
+    public void setTotalForOrder(SandwichOrder sod, float total) {
+        jdbcTemplate.update("UPDATE TU0003D.SANDWICHORDERS SET TOTALPRICE = ? WHERE ID = ?",total,sod.getId());
     }
 
 

@@ -1,26 +1,41 @@
 package be.abis.sandwich.service;
 
+import be.abis.sandwich.model.Sandwich;
+import be.abis.sandwich.model.SandwichOrder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class AbisSandwichOrderServiceTest {
+public class AbisSandwichOrderServiceTest {
 
     @Autowired
-    SandwichOrderService sos;
+    AbisSandwichOrderService abisSandwichOrderService;
 
     @Test
-     void findAllSandwiches() {
-        assertTrue(sos.findAllSandwiches().size() > 0);
+    void findAllSandwichesTest(){
+        List<Sandwich> allSandwiches = abisSandwichOrderService.findAllSandwiches();
+        System.out.println(allSandwiches.toString());
     }
 
-    //void addSandwichOrderDetail(SandwichOrderDetail sod);
-    //void printSandwichOrder(SandwichOrder so);
-    //float calculateSandwichOrderPrice(SandwichOrder so);
-    //Sandwich findSandwichByName(String name);
+    @Test
+    void calculateSandwichOrderPrice() {
+        SandwichOrder so = new SandwichOrder();
+        so.setId(0);
+        abisSandwichOrderService.calculateSandwichOrderPrice(so);
+    }
+
+    @Test
+    void findSandwichByName() {
+        assertEquals("poisson", abisSandwichOrderService.findSandwichByName("poisson").getName());
+    }
+
+
+
 
 
 }
