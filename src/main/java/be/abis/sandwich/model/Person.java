@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class Person {
 
+    private int personId;
+
     private String firstName;
     private String lastName;
 
@@ -11,9 +13,19 @@ public class Person {
 
     }
 
-    public Person(String firstName, String lastName) {
+    public Person(int personId, String firstName, String lastName) {
+        this.personId = personId;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {
@@ -35,6 +47,7 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
+                "Person with id " + personId + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
