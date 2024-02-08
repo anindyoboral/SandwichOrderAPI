@@ -1,7 +1,5 @@
 package be.abis.sandwich.model;
 
-import java.util.Objects;
-
 public class Sandwich {
 
     private int id;
@@ -62,6 +60,10 @@ public class Sandwich {
 
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public String toString() {
+        return this.name + " " + this.category + " " + this.description + " " + this.basePrice;
     }
 
 
