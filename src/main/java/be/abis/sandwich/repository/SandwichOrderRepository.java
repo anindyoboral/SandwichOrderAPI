@@ -5,5 +5,4 @@ import be.abis.sandwich.model.SandwichOrderDetail;
 
 public interface SandwichOrderRepository {
     void printSandwichOrder(SandwichOrder sod);
-    double calculateSandwichOrderPrice(SandwichOrder so);
 }

@@ -6,6 +6,16 @@ import java.util.List;
 
 public class SandwichOrder {
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+
     private LocalDate orderDate;
     private Course course;
 
