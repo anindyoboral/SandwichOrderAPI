@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SandwichskeletonApplication {
+public class SandwichOrderApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SandwichskeletonApplication.class, args);
+        SpringApplication.run(SandwichOrderApiApplication.class, args);
     }
 
 }

@@ -1,0 +1,4 @@
+be\abis\sandwich\PersonRepositoryTest.class
+be\abis\sandwich\repository\DBCourseRepositoryTest.class
+be\abis\sandwich\service\AbisSandwichOrderServiceTest.class
+be\abis\sandwich\SandwichOrderApiApplicationTests.class
