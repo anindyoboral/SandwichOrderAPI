@@ -11,7 +11,7 @@
     <groupId>be.abis</groupId>
     <artifactId>sandwich</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sandwichorderapiapplication</name>
+    <name>sandwichskeleton</name>
     <description>sandwichskeleton</description>
     <properties>
         <java.version>17</java.version>
