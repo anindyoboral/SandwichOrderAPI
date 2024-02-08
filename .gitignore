@@ -5,6 +5,8 @@
 
 *.iml
 
+*.xml
+
 # Log file
 *.log
 
