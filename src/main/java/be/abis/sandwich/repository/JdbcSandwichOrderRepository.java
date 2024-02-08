@@ -6,10 +6,12 @@ import be.abis.sandwich.model.SandwichOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class JdbcSandwichOrderRepository implements SandwichOrderRepository{
 
     @Autowired
@@ -31,6 +33,7 @@ public class JdbcSandwichOrderRepository implements SandwichOrderRepository{
             sandwichOrder.setId(rs.getInt("ID"));
             sandwichOrder.setOrderDate(rs.getDate("LOCALDATE").toLocalDate());
             sandwichOrder.setCourse( courseRepository.findCourse(rs.getInt("COURSE")));
+            sandwichOrder.setTotalprice(rs.getDouble("TOTALPRICE"));
             return sandwichOrder;
         }
     }
