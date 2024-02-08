@@ -8,12 +8,14 @@ import be.abis.sandwich.model.SandwichOrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailRepository{
 
     @Autowired
@@ -33,8 +35,8 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
     }
 
     @Override
-    public List<SandwichOrderDetail> findSandwichorderDetailsById(int id) {
-        return jdbcTemplate.query("select * from  sandwichorderdetails where id=?",new JdbcSandwichOrderDetailsrepository.SandwichOrderDetailsMapper(),id);
+    public List<SandwichOrderDetail> findSandwichorderDetailsBySandwichOrderId(int id) {
+        return jdbcTemplate.query("select * from  sandwichorderdetails where SANDWICHORDER=?",new JdbcSandwichOrderDetailsrepository.SandwichOrderDetailsMapper(),id);
     }
 
 

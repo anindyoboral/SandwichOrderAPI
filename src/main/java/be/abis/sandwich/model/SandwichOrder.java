@@ -16,6 +16,16 @@ public class SandwichOrder {
 
     private int id;
 
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
+    }
+
+    private double totalprice;
+
     private LocalDate orderDate;
     private Course course;
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SandwichOrderDetailRepository {
     void addSandwichOrderDetail(SandwichOrderDetail sod);
-    List<SandwichOrderDetail> findSandwichorderDetailsById(int id);
+    List<SandwichOrderDetail> findSandwichorderDetailsBySandwichOrderId(int id);
 
 
 }
