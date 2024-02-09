@@ -45,7 +45,7 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
                         "AMOUNT,BREADTYPE, VEGETABLES, \"COMMENT\", PERSON, SANDWICHORDER, ID, SANDWICHNAME)" +
                         "VALUES (?,?,?,?,?,?,(SELECT MAX(ID)+1 FROM TU0003D.SANDWICHORDERDETAILS),?)",
                         sod.getAmount(),
-                        sod.getBreadType().toString(),
+                        sod.getBreadType().name(),
                         sod.isVegetables() ? "Y" : "N",
                         sod.getComment(),
                         sod.getPerson().getPersonId(),
@@ -83,10 +83,10 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
             else
                 sandwichOrderDetail.setVegetables(false);
 
-            String breadType = rs.getString("BREADTYPE");
-             if (breadType.equals(BreadType.BROWN)){
+            String breadTypeString = rs.getString("BREADTYPE");
+            if (breadTypeString.equals("BROWN")){
                  sandwichOrderDetail.setBreadType(BreadType.BROWN);
-             }else
+             } else
                  sandwichOrderDetail.setBreadType(BreadType.WHITE);
 
              sandwichOrderDetail.setPerson(personRepository.findPerson(rs.getInt("PERSON")));

@@ -30,7 +30,9 @@ public class AbisSandwichOrderService implements SandwichOrderService {
     @Autowired
     private RestTemplate rt;
     @Value("${filepath.jsonOrder}")
-    private String fileName;
+    private String filePathJsonOrder;
+    @Value("${filepath.txtOrder}")
+    private String filePathTxtOrder;
     //@Value("${sandwichapi.hostnamelist}")
     //private String[] sandwichApiHostname = {"ws94wo93.abis.be","ws94wo94.abis.be"}; //HAHAHA issue with DNS names
     private String[] sandwichApiHostname = {"10.24.234.253","10.24.234.233","localhost"};
@@ -79,6 +81,30 @@ public class AbisSandwichOrderService implements SandwichOrderService {
     @Override
     public void printSandwichOrder(SandwichOrder so) {
         List<SandwichOrderDetail> sodl = sodr.findSandwichorderDetailsBySandwichOrderId(so.getId());
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(filePathTxtOrder);
+            //String toTxt = so.getOrderDate() + " " + so.getCourse().getTitle() + " " + so.getTotalprice() + "\r\n";
+            String toTxt = String.format("order id (%d)\r\n",so.getId());
+            byte[] strToBytes = toTxt.getBytes();
+            outputStream.write(strToBytes);
+            for (SandwichOrderDetail sod : sodl) {
+                toTxt = String.format("%s: %dx %s %s (%s groceries)\r\n",
+                        sod.getPerson().getFirstName(),
+                        sod.getAmount(),
+                        sod.getBreadType().name(),
+                        sod.getSandwich().getName(),
+                        sod.isVegetables() ? "with" : "without");
+                strToBytes = toTxt.getBytes();
+                outputStream.write(strToBytes);
+
+            }
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = null;
         try {
@@ -87,8 +113,8 @@ public class AbisSandwichOrderService implements SandwichOrderService {
             throw new RuntimeException(e);
         }
         try {
-            FileOutputStream outputStream = null;
-            outputStream = new FileOutputStream(fileName);
+            outputStream = null;
+            outputStream = new FileOutputStream(filePathJsonOrder);
             byte[] strToBytes = json.getBytes();
             outputStream.write(strToBytes);
             outputStream.close();
