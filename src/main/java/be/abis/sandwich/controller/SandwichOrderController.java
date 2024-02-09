@@ -1,6 +1,7 @@
 package be.abis.sandwich.controller;
 
 import be.abis.sandwich.model.Sandwich;
+import be.abis.sandwich.model.SandwichOrder;
 import be.abis.sandwich.model.SandwichOrderDetail;
 import be.abis.sandwich.service.SandwichOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,14 @@ public class SandwichOrderController {
     public Sandwich getSandwichByName(@RequestParam (name="sandwich-name") String sandwichName) {
         return sos.findSandwichByName(sandwichName);
     }
+
+    @GetMapping("/sandwich-order/{id}")
+    public float calculateSandwichOrderPriceById(@PathVariable int id) {
+        SandwichOrder so = new SandwichOrder();
+        so.setId(id);
+        return sos.calculateSandwichOrderPrice(so);
+    }
+
+
 
 }
