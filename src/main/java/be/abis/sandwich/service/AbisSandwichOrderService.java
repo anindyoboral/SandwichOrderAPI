@@ -19,9 +19,13 @@ import java.util.List;
 public class AbisSandwichOrderService implements SandwichOrderService {
 
 
+
     @Autowired
     private RestTemplate rt;
-    private String baseUri = "http://10.24.234.253:8080/sandwiches/api";
+    //@Value("${sandwichapi.hostnamelist}")
+    //private String[] sandwichApiHostname = {"ws94wo93.abis.be","ws94wo94.abis.be"}; //HAHAHA issue with DNS names
+    private String[] sandwichApiHostname = {"10.24.234.253","10.24.234.233","localhost"};
+    private String baseUri = "http://" + sandwichApiHostname[2] + ":8080/sandwiches/api";
     private static String apiKey = null;
 
     @Autowired
