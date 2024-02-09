@@ -6,8 +6,29 @@ import java.util.List;
 
 public class SandwichOrder {
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
+    }
+
+    private double totalprice;
+
     private LocalDate orderDate;
     private Course course;
+
 
     public SandwichOrder(){
 

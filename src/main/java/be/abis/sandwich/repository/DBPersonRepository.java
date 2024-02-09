@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 @Component
-public class DBPersonRepository implements PersonRepository{
+public class DBPersonRepository implements PersonRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
     @Override
     public List<Person> getAllPersons() {
         return jdbcTemplate.query("select * from abispersons", new PersonMapper());
@@ -22,26 +24,25 @@ public class DBPersonRepository implements PersonRepository{
 
     @Override
     public Person findPerson(int id) {
-        return jdbcTemplate.queryForObject("select * from abispersons where personId=?",new PersonMapper(),id);
+        return jdbcTemplate.queryForObject("select * from abispersons where personId=?", new PersonMapper(), id);
     }
 
 
     @Override
     public void addPerson(Person p) throws IOException {
 
-        jdbcTemplate.update("insert into abispersons(personId,firstname,lastname) values(?,?,?)",p.getPersonId(),p.getFirstName(),p.getLastName());
+        jdbcTemplate.update("insert into abispersons(personId,firstname,lastname) values(?,?,?)", p.getPersonId(), p.getFirstName(), p.getLastName());
 
     }
 
     @Override
     public void updatePerson(Person p) {
-        jdbcTemplate.update("update abispersons set firstname=?,lastname=? where personId=?",p.getFirstName(),p.getLastName(),p.getPersonId());
+        jdbcTemplate.update("UPDATE TU0003D.ABISPERSONS SET FIRSTNAME = ? , LASTNAME = ? WHERE PERSONID = ?", p.getFirstName(), p.getLastName(), p.getPersonId());
     }
+
     @Override
     public void deletePerson(int id) {
-
-        jdbcTemplate.update("delete from abispersons where personId=?",id);
-
+        jdbcTemplate.update("DELETE FROM TU0003D.ABISPERSONS WHERE PERSONID = ?", id);
     }
 
     private static final class PersonMapper implements RowMapper<Person> {

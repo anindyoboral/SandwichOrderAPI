@@ -1,7 +1,6 @@
-package be.abis.sandwich;
+package be.abis.sandwich.repository;
 
 import be.abis.sandwich.model.Person;
-import be.abis.sandwich.repository.PersonRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -40,7 +39,8 @@ public class PersonRepositoryTest {
     @Order(3)
     public void updatePerson() throws IOException {
 
-        Person p = new Person(2,"Sandy2","Schillebeeckx2");
+        Person p = personRepository.findPerson(2);
+        p.setFirstName("Nicolas");
         personRepository.updatePerson(p);
     }
     @Test
