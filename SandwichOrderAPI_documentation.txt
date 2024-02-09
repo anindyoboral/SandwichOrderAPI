@@ -1,2 +1,13 @@
-sandwichOrderApi
+
+sandwichapi.hostnamelist=ws94wo93.abis.be,ws94wo94.abis.be
+order.json
+order.txt
+
+http://10.24.234.233:8081/sandwiches/api/sandwich-orders
+
+Get		/sandwich						@RequestParam sandwich-name			Sandwich		get sandwich
+Post	/sandwich-order					@RequestBody SandwichOrderDetail	void			post sandwich order detail
+Get		/sandwich-order/{id}/totalPrice	@PathVariable int id				float			calculate & persist order total price
+Get		/sandwich-order/{id}			@PathVariable int id				void			print & persist order
+
 
