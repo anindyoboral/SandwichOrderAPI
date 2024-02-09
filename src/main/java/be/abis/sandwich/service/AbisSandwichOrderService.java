@@ -6,13 +6,20 @@ import be.abis.sandwich.model.SandwichOrder;
 import be.abis.sandwich.model.SandwichOrderDetail;
 import be.abis.sandwich.repository.SandwichOrderDetailRepository;
 import be.abis.sandwich.repository.SandwichOrderRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -22,6 +29,8 @@ public class AbisSandwichOrderService implements SandwichOrderService {
 
     @Autowired
     private RestTemplate rt;
+    @Value("${filepath.jsonOrder}")
+    private String fileName;
     //@Value("${sandwichapi.hostnamelist}")
     //private String[] sandwichApiHostname = {"ws94wo93.abis.be","ws94wo94.abis.be"}; //HAHAHA issue with DNS names
     private String[] sandwichApiHostname = {"10.24.234.253","10.24.234.233","localhost"};
@@ -69,10 +78,24 @@ public class AbisSandwichOrderService implements SandwichOrderService {
 
     @Override
     public void printSandwichOrder(SandwichOrder so) {
-
         List<SandwichOrderDetail> sodl = sodr.findSandwichorderDetailsBySandwichOrderId(so.getId());
-        for (SandwichOrderDetail sod : sodl) {
-            System.out.println(sod.toString());
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = null;
+        try {
+            json = ow.writeValueAsString(sodl);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            FileOutputStream outputStream = null;
+            outputStream = new FileOutputStream(fileName);
+            byte[] strToBytes = json.getBytes();
+            outputStream.write(strToBytes);
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
