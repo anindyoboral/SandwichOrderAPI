@@ -30,6 +30,15 @@ public class AbisSandwichOrderServiceTest {
     }
 
     @Test
+    void printSandwichOrderTest(){
+        SandwichOrder so = new SandwichOrder();
+        so.setId(0);
+
+        abisSandwichOrderService.printSandwichOrder(so);
+
+    }
+
+    @Test
     void findSandwichByName() {
         assertEquals("poisson", abisSandwichOrderService.findSandwichByName("poisson").getName());
     }

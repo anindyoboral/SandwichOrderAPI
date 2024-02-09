@@ -1,6 +1,8 @@
 package be.abis.sandwich.service;
 
 import be.abis.sandwich.model.Person;
+import be.abis.sandwich.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,18 @@ public class AbisPersonService implements PersonService
 
 
 {
+
+    @Autowired
+    PersonRepository personRepository;
+
     @Override
     public List<Person> getAllPersons() {
-        return null;
+        return personRepository.getAllPersons();
     }
 
     @Override
     public Person findPerson(int id) {
-        return null;
+        return personRepository.findPerson(id);
     }
 
     @Override

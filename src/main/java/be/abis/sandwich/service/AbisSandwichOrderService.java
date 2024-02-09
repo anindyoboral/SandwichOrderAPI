@@ -1,6 +1,7 @@
 package be.abis.sandwich.service;
 
 import be.abis.sandwich.enumeration.BreadType;
+import be.abis.sandwich.model.Course;
 import be.abis.sandwich.model.Sandwich;
 import be.abis.sandwich.model.SandwichOrder;
 import be.abis.sandwich.model.SandwichOrderDetail;
@@ -66,9 +67,19 @@ public class AbisSandwichOrderService implements SandwichOrderService {
     @Override
     public void printSandwichOrder(SandwichOrder so) {
 
+      //  System.out.println("Course name "+ courseService.findCourse(so.getCourse().getId()).getTitle());
         List<SandwichOrderDetail> sodl = sodr.findSandwichorderDetailsBySandwichOrderId(so.getId());
         for (SandwichOrderDetail sod : sodl) {
-            System.out.println(sod.toString());
+            System.out.println("Printing sandwich details for order"+so.getId());
+            System.out.println("Number of sandwiches"+sod.getAmount());
+            System.out.println("Type of Sandwich"+ sod.getSandwich().getName());
+            System.out.println("Base Price of Sandwich"+ findSandwichByName(sod.getSandwich().getName()).getBasePrice());
+            System.out.println("BreadType"+ sod.getBreadType().toString());
+            System.out.println("Vegetables included ?"+ sod.isVegetables());
+            System.out.println("Comments ?"+ sod.getComment());
+            System.out.println("First name of Person"+ personService.findPerson(sod.getPerson().getPersonId()).getFirstName());
+            System.out.println("First name of Person"+ personService.findPerson(sod.getPerson().getPersonId()).getLastName());
+
         }
     }
 
