@@ -29,6 +29,18 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
 
         //jdbcTemplate.update("insert into  sandwichorderdetails(amount,breadtype,vegetables,person,sandwichorder,comment,sandwichname)\n" +
         //        "values(?,?,?,?,?,?)" , sod.getAmount(),sod.getBreadType(),sod.isVegetables(),sod.getPerson().getPersonId(),sod.getSandwichOrder().getId(),sod.getComment(),sod.getSandwich().getName());
+
+        //String sqlStatement = String.format("INSERT INTO TU0003D.SANDWICHORDERDETAILS (" +
+        //        "AMOUNT,BREADTYPE, VEGETABLES, \"COMMENT\", PERSON, SANDWICHORDER, ID, SANDWICHNAME)" +
+        //        "VALUES (%d,%s,%s,%s,%d,%d,(SELECT MAX(ID)+1 FROM TU0003D.SANDWICHORDERDETAILS),%s)",
+        //sod.getAmount(),
+        //        sod.getBreadType().toString(),
+        //        sod.isVegetables() ? "Y" : "N",
+        //        sod.getComment(),
+        //        sod.getPerson().getPersonId(),
+        //        sod.getSandwichOrder().getId(),
+        //        sod.getSandwich().getName());
+        //System.out.println(sqlStatement);
         jdbcTemplate.update("INSERT INTO TU0003D.SANDWICHORDERDETAILS (" +
                         "AMOUNT,BREADTYPE, VEGETABLES, \"COMMENT\", PERSON, SANDWICHORDER, ID, SANDWICHNAME)" +
                         "VALUES (?,?,?,?,?,?,(SELECT MAX(ID)+1 FROM TU0003D.SANDWICHORDERDETAILS),?)",
