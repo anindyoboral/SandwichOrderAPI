@@ -1,7 +1,6 @@
 package be.abis.sandwich.repository;
 
 import be.abis.sandwich.enumeration.BreadType;
-import be.abis.sandwich.model.Person;
 import be.abis.sandwich.model.Sandwich;
 import be.abis.sandwich.model.SandwichOrder;
 import be.abis.sandwich.model.SandwichOrderDetail;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +27,19 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
     @Override
     public void addSandwichOrderDetail(SandwichOrderDetail sod) {
 
-        jdbcTemplate.update("insert into  sandwichorderdetails(amount,breadtype,vegetables,person,sandwichorder,comment,sandwichname)\n" +
-                "values(?,?,?,?,?,?)" , sod.getAmount(),sod.getBreadType(),sod.isVegetables(),sod.getPerson().getPersonId(),sod.getSandwichOrder().getId(),sod.getComment(),sod.getSandwich().getName());
+        //jdbcTemplate.update("insert into  sandwichorderdetails(amount,breadtype,vegetables,person,sandwichorder,comment,sandwichname)\n" +
+        //        "values(?,?,?,?,?,?)" , sod.getAmount(),sod.getBreadType(),sod.isVegetables(),sod.getPerson().getPersonId(),sod.getSandwichOrder().getId(),sod.getComment(),sod.getSandwich().getName());
+        jdbcTemplate.update("INSERT INTO TU0003D.SANDWICHORDERDETAILS (" +
+                        "AMOUNT,BREADTYPE, VEGETABLES, \"COMMENT\", PERSON, SANDWICHORDER, ID, SANDWICHNAME)" +
+                        "VALUES (?,?,?,?,?,?,(SELECT MAX(ID)+1 FROM TU0003D.SANDWICHORDERDETAILS),?)",
+                        sod.getAmount(),
+                        sod.getBreadType().toString(),
+                        sod.isVegetables() ? "Y" : "N",
+                        sod.getComment(),
+                        sod.getPerson().getPersonId(),
+                        sod.getSandwichOrder().getId(),
+                        sod.getSandwich().getName()
+                );
 
     }
 
@@ -48,6 +57,9 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
             sandwichOrderDetail.setAmount(rs.getInt("AMOUNT"));
 
             sandwichOrderDetail.setComment(rs.getString("COMMENT"));
+            SandwichOrder so = new SandwichOrder();
+            so.setId(rs.getInt("SANDWICHORDER"));
+            sandwichOrderDetail.setSandwichOrder(so);
 
             Sandwich sandwich = new Sandwich();
             sandwich.setName(rs.getString("SANDWICHNAME"));
