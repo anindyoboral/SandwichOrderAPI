@@ -1,5 +1,6 @@
 package be.abis.sandwich.repository;
 
+import be.abis.sandwich.exception.SandwichNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,7 @@ class JdbcSandwichOrderDetailsrepositoryTest {
     }
 
     @Test
-    void findSandwichorderDetailsBySandwichOrderId() {
+    void findSandwichorderDetailsBySandwichOrderId() throws SandwichNotFoundException {
         assertTrue(jdbcSodr.findSandwichorderDetailsBySandwichOrderId(0).size() > 0);
     }
 }

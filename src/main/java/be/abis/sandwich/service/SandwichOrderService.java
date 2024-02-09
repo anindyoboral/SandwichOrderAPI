@@ -9,7 +9,7 @@ import java.util.List;
 public interface SandwichOrderService {
 
 
-    List<Sandwich> findAllSandwiches();
+    List<Sandwich> findAllSandwiches() throws Exception;
     void addSandwichOrderDetail(SandwichOrderDetail sod);
     void printSandwichOrder(SandwichOrder so);
     float calculateSandwichOrderPrice(SandwichOrder so);

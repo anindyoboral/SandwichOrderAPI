@@ -17,7 +17,7 @@ public class AbisSandwichOrderServiceTest {
     AbisSandwichOrderService abisSandwichOrderService;
 
     @Test
-    void findAllSandwichesTest(){
+    void findAllSandwichesTest() throws Exception {
         List<Sandwich> allSandwiches = abisSandwichOrderService.findAllSandwiches();
         System.out.println(allSandwiches.toString());
     }
@@ -30,7 +30,7 @@ public class AbisSandwichOrderServiceTest {
     }
 
     @Test
-    void findSandwichByName() {
+    void findSandwichByName() throws Exception {
         assertEquals("poisson", abisSandwichOrderService.findSandwichByName("poisson").getName());
     }
 

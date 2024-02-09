@@ -1,15 +1,14 @@
 package be.abis.sandwich.repository;
 
 import be.abis.sandwich.enumeration.BreadType;
-import be.abis.sandwich.model.Person;
+import be.abis.sandwich.exception.SandwichAlreadyExistsException;
+import be.abis.sandwich.exception.SandwichNotFoundException;
 import be.abis.sandwich.model.Sandwich;
-import be.abis.sandwich.model.SandwichOrder;
 import be.abis.sandwich.model.SandwichOrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +26,7 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
 
 
     @Override
-    public void addSandwichOrderDetail(SandwichOrderDetail sod) {
+    public void addSandwichOrderDetail(SandwichOrderDetail sod)throws SandwichAlreadyExistsException {
 
         jdbcTemplate.update("insert into  sandwichorderdetails(amount,breadtype,vegetables,person,sandwichorder,comment,sandwichname)\n" +
                 "values(?,?,?,?,?,?)" , sod.getAmount(),sod.getBreadType(),sod.isVegetables(),sod.getPerson().getPersonId(),sod.getSandwichOrder().getId(),sod.getComment(),sod.getSandwich().getName());
@@ -35,7 +34,7 @@ public class JdbcSandwichOrderDetailsrepository implements  SandwichOrderDetailR
     }
 
     @Override
-    public List<SandwichOrderDetail> findSandwichorderDetailsBySandwichOrderId(int id) {
+    public List<SandwichOrderDetail> findSandwichorderDetailsBySandwichOrderId(int id)throws SandwichNotFoundException {
         return jdbcTemplate.query("select * from  sandwichorderdetails where SANDWICHORDER=?",new JdbcSandwichOrderDetailsrepository.SandwichOrderDetailsMapper(),id);
     }
 
